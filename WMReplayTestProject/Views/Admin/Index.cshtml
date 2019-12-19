@@ -1,0 +1,128 @@
+﻿@model WMReplayTestProject.WEB.Models.IndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h2>Статьи</h2>
+<a asp-action="CreateArticle">Создать статью</a> 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p>Название статьи </p>
+            </th>
+            <th>
+                <p>Описание </p>
+            </th>
+            <th>
+                <p>Путбликация </p>
+            </th>
+            <th>
+                <p>Категория</p>
+            </th>
+            <th>
+                <p>Теги</p>
+            </th>
+            <th>
+                <p>Действия</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.articleViewModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishedDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TagId)
+                </td>
+                <td>
+                    <a asp-action="EditArticle" asp-route-id="@item.Id">Редактировать</a> 
+                    <a asp-action="DeleteArticle" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Категории</h2>
+<a asp-action="CreateCategory">Создать Категорию</a> 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p>Название категории </p>
+            </th>
+            <th>
+                <p>Описание </p>
+            </th>
+            <th>
+                <p>Действия</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.categoryViewModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-action="DeleteCategory" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Теги</h2>
+<a asp-action="CreateTag">Создать Тег</a> 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p>Название Тега </p>
+            </th>
+            <th>
+                <p>Описание </p>
+            </th>
+            <th>
+                <p>Действия</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.tagViewModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-action="EditTag" asp-route-id="@item.Id">Редактировать</a> 
+                    <a asp-action="DeleteTag" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

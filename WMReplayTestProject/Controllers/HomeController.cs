@@ -1,18 +1,30 @@
-﻿using System;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using WMReplayTestProject.BLL.DTO;
+using WMReplayTestProject.BLL.Interfaces;
 using WMReplayTestProject.Models;
+using WMReplayTestProject.WEB.Models;
 
 namespace WMReplayTestProject.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        readonly private IArticleService _articleService;
+        readonly private IMapper _mapper;
+
+        public HomeController(IArticleService articleService, IMapper mapper)
         {
-            return View();
+            _articleService = articleService;
+            _mapper = mapper;
+        }
+        public async Task<IActionResult> Index()
+        {
+           var getAllArticles = await _articleService.GetAllAsync();
+            var viewModel = _mapper.Map <IEnumerable<ArticleDTO>, IEnumerable<ArticleViewModel>>(getAllArticles);
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

@@ -1,8 +1,49 @@
-﻿@{
+﻿@model IEnumerable<WMReplayTestProject.WEB.Models.ArticleViewModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <p>Название статьи </p>
+                </th>
+                <th>
+                    <p>Описание </p>
+                </th>
+                <th>
+                    <p>Путбликация </p>
+                </th>
+                <th>
+                    <p>Категория</p>
+                </th>
+                <th>
+                    <p>Теги</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PublishedDateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TagId)
+                    </td>
+                   
+                </tr>
+            }
+        </tbody>
+    </table>

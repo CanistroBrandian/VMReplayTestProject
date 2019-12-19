@@ -27,6 +27,7 @@ namespace WMReplayTestProject.BLL.Services
                 if (item.Name != null || item.Description != null)
                 {
                     var article = _mapper.Map<ArticleDTO, Article>(item);
+                    article.PublishedDateTime =  DateTime.Now;
                     await _articleRepository.CreateAsync(article);
                     return item;
                 }
@@ -103,6 +104,7 @@ namespace WMReplayTestProject.BLL.Services
                     sourceArticle.Description = item.Description;
                     sourceArticle.CategoryId = item.CategoryId;
                     sourceArticle.TagId = item.TagId;
+                    sourceArticle.PublishedDateTime = DateTime.Now;
 
                     await _articleRepository.UpdateAsync(sourceArticle);
                 }

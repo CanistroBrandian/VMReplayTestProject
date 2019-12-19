@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading.Tasks;
 using WMReplayTestProject.BLL.DTO;
@@ -83,15 +84,14 @@ namespace WMReplayTestProject.BLL.Services
         //    }
         //}
 
-        public async Task<UserDTO> AddUserAsync(UserDTO item)
+        public async Task<IdentityResult> AddUserAsync(UserDTO item)
         {
             try
             {
                 if (item.Email != null || item.Password != null)
                 {
                     var user = _mapper.Map<UserDTO, User>(item);
-                    await _userRepository.AddUserAsync(user, item.Password);
-                    return item;
+                   return await _userRepository.AddUserAsync(user, item.Password);                    
                 }
                 else
                 {
