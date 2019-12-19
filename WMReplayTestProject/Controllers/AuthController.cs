@@ -71,7 +71,7 @@ namespace WMReplayTestProject.WEB.Controllers
             if (addedUser.Succeeded)
             {
                 await _authService.SignInAsync(userDTO);
-                return RedirectToAction("Index", "Article");
+                return RedirectToAction("Login", "Auth");
             }
             else
             {

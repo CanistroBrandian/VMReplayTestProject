@@ -23,6 +23,7 @@ namespace WMReplayTestProject.Controllers
         public async Task<IActionResult> Index()
         {
            var getAllArticles = await _articleService.GetAllAsync();
+
             var viewModel = _mapper.Map <IEnumerable<ArticleDTO>, IEnumerable<ArticleViewModel>>(getAllArticles);
             return View(viewModel);
         }

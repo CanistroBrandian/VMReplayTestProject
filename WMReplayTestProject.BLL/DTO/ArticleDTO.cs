@@ -12,5 +12,7 @@ namespace WMReplayTestProject.BLL.DTO
         public int CategoryId { get; set; }
         public int TagId { get; set; }
         public DateTime PublishedDateTime { get; set; }
+        public CategoryDTO Category { get; set; }
+        public TagDTO Tag { get; set; }
     }
 }

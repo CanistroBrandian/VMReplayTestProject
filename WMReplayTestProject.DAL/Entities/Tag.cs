@@ -6,6 +6,6 @@ namespace WMReplayTestProject.DAL.Entities
 {
     public class Tag : BaseEntity
     {
-        public Article Article{get;set;}
+        public IEnumerable<Article> Articles {get;set;}
     }
 }

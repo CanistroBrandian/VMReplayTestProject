@@ -10,7 +10,7 @@ namespace WMReplayTestProject.DAL.Entities
         public int TagId { get; set; }
         public DateTime PublishedDateTime { get; set; }
         public Category Category { get; set; }
-        public IEnumerable<Tag> Tags { get; set; }
+        public Tag Tag { get; set; }
 
     }
 }

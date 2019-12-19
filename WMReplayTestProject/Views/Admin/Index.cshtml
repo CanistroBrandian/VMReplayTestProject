@@ -44,10 +44,10 @@
                     @Html.DisplayFor(modelItem => item.PublishedDateTime)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CategoryId)
+                    @Html.DisplayFor(modelItem => item.Category.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TagId)
+                    @Html.DisplayFor(modelItem => item.Tag.Name)
                 </td>
                 <td>
                     <a asp-action="EditArticle" asp-route-id="@item.Id">Редактировать</a> 
