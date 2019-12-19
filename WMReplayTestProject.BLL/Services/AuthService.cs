@@ -23,13 +23,14 @@ namespace WMReplayTestProject.BLL.Services
         }
         public bool IsSignedIn(ClaimsPrincipal principal)
         {
-           return _signInManager.IsSignedIn(principal);
+            return _signInManager.IsSignedIn(principal);
         }
 
         public async Task<SignInResult> PasswordSignInAsync(string email, string pass, bool isPersistent, bool lockoutOnFailure)
         {
             try
             {
+
                 return await _signInManager.PasswordSignInAsync(email, pass, isPersistent, lockoutOnFailure);
             }
             catch
@@ -56,12 +57,18 @@ namespace WMReplayTestProject.BLL.Services
         {
             try
             {
-                  await _signInManager.SignOutAsync();
+                await _signInManager.SignOutAsync();
             }
             catch
             {
                 new Exception("Ошибка при выходе из аккаунта");
             }
+        }
+
+        public async Task<ClaimsPrincipal> CreateUserPrincipalAsync(UserDTO userDTO)
+        {
+            var user = _mapper.Map<UserDTO, User>(userDTO);
+            return await _signInManager.CreateUserPrincipalAsync(user);
         }
     }
 }

@@ -19,19 +19,19 @@ namespace WMReplayTestProject.DAL.Repositories
         {
             if (predicate == null)
             {
-                return await _context.Set<Article>().Include(e => e.Category).Include(u => u.Tags).AsNoTracking().ToListAsync();
+                return await _context.Set<Article>().Include(e => e.Category).Include(u => u.Tag).AsNoTracking().ToListAsync();
             }
-            return await _context.Set<Article>().Where(predicate).Include(e => e.Category).Include(u => u.Tags).AsNoTracking().ToListAsync();
+            return await _context.Set<Article>().Where(predicate).Include(e => e.Category).Include(u => u.Tag).AsNoTracking().ToListAsync();
         }
 
         public override async Task<Article> FindByIdAsync(int id)
         {
-            return await _context.Set<Article>().Include(e => e.Category).Include(u => u.Tags).AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
+            return await _context.Set<Article>().Include(e => e.Category).Include(u => u.Tag).AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public override async Task<IEnumerable<Article>> GetAllAsync()
         {
-            return await _context.Set<Article>().Include(e => e.Category).Include(u => u.Tags).AsNoTracking().ToListAsync();
+            return await _context.Set<Article>().Include(e => e.Category).Include(u => u.Tag).AsNoTracking().ToListAsync();
         }
     }
 }

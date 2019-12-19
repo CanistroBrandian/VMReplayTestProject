@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 using WMReplayTestProject.BLL.DTO;
 
 namespace WMReplayTestProject.BLL.Interfaces
@@ -8,7 +9,7 @@ namespace WMReplayTestProject.BLL.Interfaces
         Task<UserDTO> GetByIdAsync(int id);
         Task<UserDTO> GetByNameAsync(string name);
       //  Task UpdateAsync(UserDTO item);
-        Task<UserDTO> AddUserAsync(UserDTO item);
+        Task<IdentityResult> AddUserAsync(UserDTO item);
 
     }
 }

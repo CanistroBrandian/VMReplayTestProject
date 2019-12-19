@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WMReplayTestProject.BLL.DTO;
 using WMReplayTestProject.DAL.Entities;
+using WMReplayTestProject.WEB.Models;
 
 namespace WMReplayTestProject.WEB.AutoMapper
 {
@@ -16,6 +17,11 @@ namespace WMReplayTestProject.WEB.AutoMapper
             CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<Tag, TagDTO>().ReverseMap();
             CreateMap<Article, ArticleDTO>().ReverseMap();
+            CreateMap<RegisterViewModel, UserDTO>().ReverseMap();
+            CreateMap<TagViewModel, TagDTO>().ReverseMap();
+            CreateMap<CategoryViewModel, CategoryDTO>().ReverseMap();
+            CreateMap<ArticleViewModel, ArticleDTO>().ReverseMap();
+
         }
     }
 }

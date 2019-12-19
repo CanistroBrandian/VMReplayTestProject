@@ -10,12 +10,12 @@ namespace WMReplayTestProject.DAL.Repositories
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        public UserRepository(AspNetUserManager<User> userManager, SignInManager<User> signInManager)
+        public UserRepository(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        public async Task AddUserAsync(User modelUser, string password)
+        public async Task<IdentityResult> AddUserAsync(User modelUser, string password)
         {
             try
             {
@@ -24,11 +24,12 @@ namespace WMReplayTestProject.DAL.Repositories
                     Email = modelUser.Email,
                     UserName = modelUser.Email
                 };
-                var result = await _userManager.CreateAsync(user, password);
+                return await _userManager.CreateAsync(user, password);
             }
             catch
             {
                 new ArgumentException("Регистрация нового поьзователя не прошла");
+                return null;
             }
             
         }

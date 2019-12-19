@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WMReplayTestProject.BLL.Interfaces;
@@ -38,7 +32,16 @@ namespace WMReplayTestProject
             string connection = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<EFContext>(options => options.UseSqlServer(connection));
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<EFContext>();
+            services.AddIdentity<User, IdentityRole<int>>(opts => {
+                opts.User.RequireUniqueEmail = true;    // уникальный email
+                opts.User.AllowedUserNameCharacters = ".@abcdefghijklmnopqrstuvwxyz1234567890"; // допустимые символы
+                opts.Password.RequiredLength = 5;   // минимальная длина
+                opts.Password.RequireNonAlphanumeric = false;   // требуются ли не алфавитно-цифровые символы
+                opts.Password.RequireLowercase = false; // требуются ли символы в нижнем регистре
+                opts.Password.RequireUppercase = false; // требуются ли символы в верхнем регистре
+                opts.Password.RequireDigit = false; // требуются ли цифры
+            })
+        .AddEntityFrameworkStores<EFContext>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -57,11 +60,13 @@ namespace WMReplayTestProject
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+          //  services.AddScoped<UserManager<User>, UserRepository>();
 
             services.AddScoped<IArticleService, ArticleService>();
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthService, AuthService>();
 
 
         
@@ -82,10 +87,12 @@ namespace WMReplayTestProject
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+           
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
